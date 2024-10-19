@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.udemypractice2.ui.theme.ButtonColor
 import com.example.udemypractice2.ui.theme.UdemyPractice2Theme
 
 class MainActivity : ComponentActivity() {
@@ -48,8 +46,7 @@ fun MainScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
-        horizontalAlignment = Alignment.Start
+            .padding(20.dp), horizontalAlignment = Alignment.Start
     ) {
         Text(
             text = "BMI計算アプリ",
@@ -74,15 +71,41 @@ fun MainScreen() {
             label = "体重(kg)",
             placeholder = "65",
         )
+        Spacer(modifier = Modifier.height(30.dp))
+
+        // 計算する
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = ButtonColor),
+            onClick = { /*TODO*/ },
+        ) {
+            Text(
+                text = "計算する",
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+            )
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // 結果を表示テキスト
+        Text(
+            text = "あなたのBMIは00.0です",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            color = Color.Gray,
+            fontSize = 24.sp,
+            fontWeight = FontWeight.ExtraBold,
+        )
     }
 }
 
 @Composable
 fun PinkLabeledTextField(
-    value:String,
-    onValueChange:(String) -> Unit,
-    label:String,
-    placeholder:String
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    placeholder: String,
 ) {
     Column {
         Text(
