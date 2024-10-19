@@ -1,9 +1,11 @@
 package com.example.udemypractice2
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +32,10 @@ import com.example.udemypractice2.ui.theme.ButtonColor
 import com.example.udemypractice2.ui.theme.UdemyPractice2Theme
 
 class MainActivity : ComponentActivity() {
+
+    // MainActivity から MainViewModel にアクセスできるようになる
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
