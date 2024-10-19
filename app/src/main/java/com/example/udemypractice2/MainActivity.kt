@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
@@ -57,8 +59,34 @@ fun MainScreen() {
         Spacer(modifier = Modifier.height(30.dp))
 
         // 身長
+        PinkLabeledTextField(
+            value = "",
+            onValueChange = { /*TODO*/ },
+            label = "身長(cm)",
+            placeholder = "170",
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // 体重
+        PinkLabeledTextField(
+            value = "",
+            onValueChange = { /*TODO*/ },
+            label = "体重(kg)",
+            placeholder = "65",
+        )
+    }
+}
+
+@Composable
+fun PinkLabeledTextField(
+    value:String,
+    onValueChange:(String) -> Unit,
+    label:String,
+    placeholder:String
+) {
+    Column {
         Text(
-            text = "身長(cm)",
+            text = label,
             color = Color.Red,
             fontWeight = FontWeight.Bold,
         )
@@ -66,15 +94,15 @@ fun MainScreen() {
         // 入力欄、value=入力欄に表示する文字列、onValueChange=入力欄に値が入力されたときの処理を担当
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            value = "",
-            onValueChange = {},
+            value = value,
+            onValueChange = onValueChange,
             colors = TextFieldDefaults.colors(
 
                 // テキストフィールドの背景色を変更、Transparent は、透明化する
                 unfocusedContainerColor = Color.Transparent,
-                focusedContainerColor = Color.Transparent
+                focusedContainerColor = Color.Transparent,
             ),
-            placeholder = { Text(text = "170") },
+            placeholder = { Text(text = placeholder) },
 
             // キーボードでの入力を数字にする
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
