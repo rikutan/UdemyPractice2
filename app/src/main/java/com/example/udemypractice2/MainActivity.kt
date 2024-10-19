@@ -1,7 +1,6 @@
 package com.example.udemypractice2
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -41,70 +40,73 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             UdemyPractice2Theme {
-                MainScreen()
+//                MainScreen()
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(20.dp), horizontalAlignment = Alignment.Start
+                ) {
+                    Text(
+                        text = "BMI計算アプリ",
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                    )
+                    Spacer(modifier = Modifier.height(30.dp))
+
+
+                    // 身長
+//                    var text by remember { mutableStateOf("") }
+                    PinkLabeledTextField(
+                        value = viewModel.height,
+//                        value = text,
+                        // it = ユーザーに入力された値
+                        onValueChange = { viewModel.height = it },
+//                        onValueChange = { text = it },
+                        label = "身長(cm)",
+                        placeholder = "170",
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    // 体重
+                    PinkLabeledTextField(
+                        value = viewModel.weight,
+                        onValueChange = { viewModel.weight = it },
+                        label = "体重(kg)",
+                        placeholder = "65",
+                    )
+                    Spacer(modifier = Modifier.height(30.dp))
+
+
+                    // 計算する
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = ButtonColor),
+                        onClick = { /*TODO*/ },
+                    ) {
+                        Text(
+                            text = "計算する",
+                            color = Color.White,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    // 結果を表示テキスト
+                    Text(
+                        text = "あなたのBMIは00.0です",
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        color = Color.Gray,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                    )
+                }
             }
         }
     }
 }
 
-@Composable
-fun MainScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp), horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = "BMI計算アプリ",
-            fontSize = 26.sp,
-            fontWeight = FontWeight.ExtraBold,
-        )
-        Spacer(modifier = Modifier.height(30.dp))
-
-        // 身長
-        PinkLabeledTextField(
-            value = "",
-            onValueChange = { /*TODO*/ },
-            label = "身長(cm)",
-            placeholder = "170",
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // 体重
-        PinkLabeledTextField(
-            value = "",
-            onValueChange = { /*TODO*/ },
-            label = "体重(kg)",
-            placeholder = "65",
-        )
-        Spacer(modifier = Modifier.height(30.dp))
-
-        // 計算する
-        Button(
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = ButtonColor),
-            onClick = { /*TODO*/ },
-        ) {
-            Text(
-                text = "計算する",
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // 結果を表示テキスト
-        Text(
-            text = "あなたのBMIは00.0です",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            color = Color.Gray,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.ExtraBold,
-        )
-    }
-}
 
 @Composable
 fun PinkLabeledTextField(
@@ -147,6 +149,5 @@ fun PinkLabeledTextField(
 @Composable
 fun UdemyPractice2Preview() {
     UdemyPractice2Theme {
-        MainScreen()
     }
 }
