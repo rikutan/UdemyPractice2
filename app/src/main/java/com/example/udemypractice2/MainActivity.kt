@@ -44,7 +44,13 @@ class MainActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(20.dp), horizontalAlignment = Alignment.Start
+                        .padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            top = 40.dp,
+                            bottom = 20.dp
+                        ),
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Text(
                         text = "BMI計算アプリ",
@@ -92,15 +98,44 @@ class MainActivity : ComponentActivity() {
                     }
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // 結果を表示テキスト
-                    Text(
-                        text = "あなたのBMIは ${viewModel.bmi} です",
+                    // クリアボタン
+                    Button(
                         modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        color = Color.Gray,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                    )
+                        colors = ButtonDefaults.buttonColors(containerColor = ButtonColor),
+                        onClick = { viewModel.clearTextField() },
+                    ) {
+                        Text(
+                            text = "クリア",
+                            color = Color.White,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+
+
+                    // ifの条件が false のため、この if自体のブロックをスキップする
+                    // viewModel内の処理で trueになったら表示する
+                    if (viewModel.isResultShown) {
+                        // BMI 結果表示テキスト
+                        Text(
+                            text = "あなたのBMIは ${viewModel.bmi} です",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            color = Color.Gray,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                        )
+                        // BMI 判定テキスト
+                        Text(
+                            text = viewModel.result,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            color = Color.Gray,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                        )
+                    }
                 }
             }
         }
@@ -133,7 +168,7 @@ fun PinkLabeledTextField(
                 unfocusedContainerColor = Color.Transparent,
                 focusedContainerColor = Color.Transparent,
             ),
-            placeholder = { Text(text = placeholder) },
+            placeholder = { Text(text = placeholder,color = Color.Gray) },
 
             // キーボードでの入力を数字にする
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
